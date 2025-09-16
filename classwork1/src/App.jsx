@@ -1,18 +1,33 @@
-import { useState, unstable_Activity as Activity } from 'react';
-import Header from './components/Header.jsx';
-import StoryTray from './StoryTray.jsx';
-
-let initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
-];
+import { useCallback, useRef, useState } from 'react';
+import TodoList from './components/TodoList/Todolist';
 
 export default function App() {
-  let [stories, setStories] = useState(initialStories)
+
+  const [list, setList] = useState([ 'First task', 'Second Task'])
+  
+  const inputRef = useRef(null);
+
+  function handleFocus () {
+    inputRef.current.focus();
+  }
+
+  function handleBlur () {
+    inputRef.current.blur();
+  }
+
+  const onAddNewTask = useCallback(() => {
+    setList([...list, `New task ${list.length + 1}`])
+  }, [list])
+
+
 
   return (
    <>
-   <Header/>
+    <input ref={inputRef} />
+    <button onClick={handleFocus}>focus</button>
+    <button onClick={handleBlur}>blur</button>
+
+    <TodoList list={list} handleAdd={onAddNewTask}/>
    </>
   );
 }

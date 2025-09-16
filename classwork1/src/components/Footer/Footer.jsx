@@ -8,7 +8,6 @@ export function Footer () {
                     <li>categories</li>
                 </ul>
             </nav>
-            
-              </div>
+        </div>
     )
 }
